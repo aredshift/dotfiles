@@ -1,0 +1,18 @@
+
+### pyenv ###
+export PYENV_ROOT="$HOME/.pyenv"
+command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
+
+### PostgreSQL ###
+export PATH="/opt/homebrew/opt/postgresql@15/bin:$PATH"
+# For compilers to find postgresql@15 you may need to set:
+export LDFLAGS="-L/opt/homebrew/opt/postgresql@15/lib"
+export CPPFLAGS="-I/opt/homebrew/opt/postgresql@15/include"
+# For pkg-config to find postgresql@15 you may need to set:
+export PKG_CONFIG_PATH="/opt/homebrew/opt/postgresql@15/lib/pkgconfig"
+# To restart postgresql@15 after an upgrade:
+alias restartpostgres="brew services restart postgresql@15"
+
+### OpenSSL ###
+export OPENSSL_ROOT_DIR="/opt/homebrew/Cellar/openssl@3/3.1.0/"
