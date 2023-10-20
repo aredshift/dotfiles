@@ -6,10 +6,11 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
 fi
 
 ### ANTIGEN ###
-# NOTE: will need to templatize this in order for it to work on non-mac systems
-# source $HOME/antigen.zsh
+{{ if eq .chezmoi.os "linux" -}}
+source $HOME/antigen.zsh
+{{ else if eq .chezmoi.os "darwin" -}}
 source /opt/homebrew/share/antigen/antigen.zsh
-    
+{{- end }}
 # Load the oh-my-zsh's library
 antigen use oh-my-zsh
 
@@ -40,6 +41,8 @@ eval "$(pyenv init -)"
 ### end pyenv ###
 
 ### PostgreSQL ###
+{{ if eq .chezmoi.os "linux" -}}
+{{ else if eq .chezmoi.os "darwin" -}}
 export PATH="/opt/homebrew/opt/postgresql@15/bin:$PATH"
 # For compilers to find postgresql@15 you may need to set:
 export LDFLAGS="-L/opt/homebrew/opt/postgresql@15/lib"
@@ -48,10 +51,13 @@ export CPPFLAGS="-I/opt/homebrew/opt/postgresql@15/include"
 export PKG_CONFIG_PATH="/opt/homebrew/opt/postgresql@15/lib/pkgconfig"
 # To restart postgresql@15 after an upgrade:
 alias restartpostgres="brew services restart postgresql@15"
+{{ end -}}
 ### end PostgreSQL ###
 
 ### OpenSSL ###
+{{ if eq .chezmoi.os "linux" -}}
+{{ else if eq .chezmoi.os "darwin" -}}
 export OPENSSL_ROOT_DIR="/opt/homebrew/Cellar/openssl@3/3.1.0/"
+{{ end -}}
 ### end OpenSSL ###
-
 
