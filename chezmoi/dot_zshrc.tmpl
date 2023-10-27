@@ -5,7 +5,7 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-### ANTIGEN ###
+# >>> ANTIGEN >>>
 {{ if eq .chezmoi.os "linux" -}}
 source $HOME/antigen.zsh
 {{ else if eq .chezmoi.os "darwin" -}}
@@ -27,20 +27,23 @@ antigen theme romkatv/powerlevel10k
 
 # Tell antigen that you're done
 antigen apply
-### END ANTIGEN ###
+# <<< ANTIGEN <<<
 
-### P10K THEME ###
+# >>> P10K THEME >>>
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-### END P10K THEME ###
+# <<< P10K THEME <<<
 
-### pyenv ###
+
+{{ if eq .chezmoi.os "darwin" -}}
+# >>> pyenv >>>
 export PYENV_ROOT="$HOME/.pyenv"
 command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init -)"
-### end pyenv ###
+# <<< pyenv <<<
+{{ end -}}
 
-### PostgreSQL ###
+# >>> PostgreSQL >>>
 {{ if eq .chezmoi.os "linux" -}}
 {{ else if eq .chezmoi.os "darwin" -}}
 export PATH="/opt/homebrew/opt/postgresql@15/bin:$PATH"
@@ -52,12 +55,12 @@ export PKG_CONFIG_PATH="/opt/homebrew/opt/postgresql@15/lib/pkgconfig"
 # To restart postgresql@15 after an upgrade:
 alias restartpostgres="brew services restart postgresql@15"
 {{ end -}}
-### end PostgreSQL ###
+# <<< PostgreSQL <<<
 
-### OpenSSL ###
+# >>> OpenSSL >>>
 {{ if eq .chezmoi.os "linux" -}}
 {{ else if eq .chezmoi.os "darwin" -}}
 export OPENSSL_ROOT_DIR="/opt/homebrew/Cellar/openssl@3/3.1.0/"
 {{ end -}}
-### end OpenSSL ###
+# <<< OpenSSL <<<
 

@@ -18,7 +18,7 @@ brew install --cask alacritty
     {{ if eq .chezmoi.osRelease.id "fedora" -}}
     sudo dnf install tmux
     {{ else if eq .chezmoi.osRelease.id "arch" -}}
-    sudo pacman -S atmux
+    sudo pacman -S tmux
     {{- end -}}
 {{ else if eq .chezmoi.os "darwin" -}}
 brew install tmux
@@ -39,3 +39,10 @@ curl -L git.io/antigen > antigen.zsh
 brew install antigen
 {{- end -}}
 # <<< Antigen <<<
+
+
+# >>> Pyenv >>>
+{{ if eq .chezmoi.os "darwin" -}}
+brew install pyenv
+{{- end -}}
+# <<< Pyenv <<<
