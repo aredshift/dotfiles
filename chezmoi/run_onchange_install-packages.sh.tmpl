@@ -10,7 +10,7 @@
     {{- end -}}
 {{ else if eq .chezmoi.os "darwin" -}}
 brew install --cask alacritty
-{{- end -}}
+{{- end }}
 # <<< Alacritty <<<
 
 # >>> tmux >>>
@@ -22,10 +22,11 @@ brew install --cask alacritty
     {{- end -}}
 {{ else if eq .chezmoi.os "darwin" -}}
 brew install tmux
-{{- end -}}
+{{- end }}
 # <<< tmux <<<
 
 # >>> Fonts >>>
+mkdir -p ~/.local/share/fonts
 curl -L https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Regular.ttf -o ~/.local/share/fonts/MesloLGS\ NF\ Regular.ttf
 curl -L https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold.ttf -o ~/.local/share/fonts/MesloLGS\ NF\ Bold.ttf
 curl -L https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Italic.ttf -o ~/.local/share/fonts/MesloLGS\ NF\ Italic.ttf
@@ -37,12 +38,12 @@ curl -L https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%
 curl -L git.io/antigen > antigen.zsh
 {{ else if eq .chezmoi.os "darwin" -}}
 brew install antigen
-{{- end -}}
+{{- end }}
 # <<< Antigen <<<
 
 
 # >>> Pyenv >>>
 {{ if eq .chezmoi.os "darwin" -}}
 brew install pyenv
-{{- end -}}
+{{- end }}
 # <<< Pyenv <<<
