@@ -8,6 +8,10 @@ fi
 export VISUAL=vim
 export EDITOR="$VISUAL"
 
+# >>> ALACRITTY >>>
+TERM=xterm-256color # https://github.com/alacritty/alacritty/issues/3360
+# <<< ALACRITTY <<<
+
 # >>> ANTIGEN >>>
 {{ if eq .chezmoi.os "linux" -}}
 source $HOME/antigen.zsh
