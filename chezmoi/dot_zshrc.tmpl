@@ -77,7 +77,7 @@ export OPENSSL_ROOT_DIR="/opt/homebrew/Cellar/openssl@3/3.1.0/"
 
 # >>> SSH >>>
 # See ~/.config/systemd/user/ssh-agent.service
-eval "$(ssh-agent -s)" # start up the ssh-agent and populate env variables
+eval "$(ssh-agent -s)" > /dev/null # start up the ssh-agent and populate env variables
 keyfiles=()
 
 for keyfile in ~/.ssh/keys/*(.N); do #gloptions: .=files only (nodir), N=nullglob (no error if no result)
