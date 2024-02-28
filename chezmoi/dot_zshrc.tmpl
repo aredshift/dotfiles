@@ -1,3 +1,5 @@
+setopt extended_glob;
+
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
@@ -80,7 +82,7 @@ export OPENSSL_ROOT_DIR="/opt/homebrew/Cellar/openssl@3/3.1.0/"
 eval "$(ssh-agent -s)" > /dev/null # start up the ssh-agent and populate env variables
 keyfiles=()
 
-for keyfile in ~/.ssh/keys/*(.N); do #gloptions: .=files only (nodir), N=nullglob (no error if no result)
+for keyfile in ~/.ssh/keys/(^*.pub)(.N); do #gloptions: .=files only (nodir), N=nullglob (no error if no result)
 	keyfiles+="$keyfile";
 done
 
