@@ -2,5 +2,6 @@
 
 # all my aliases, meant to be as portable as possible
 
+# src: https://blogboard.io/blog/knowledge/cd-to-git-root/
 alias gitroot='cd $(git rev-parse --show-toplevel)'
 
