@@ -45,12 +45,13 @@ This function should only modify configuration layer settings."
      git
      helm
      html
-     ;; lsp
+     lsp
      (markdown :variables
                markdown-live-preview-engine 'vmd)
      multiple-cursors
      org
-     rust
+     (rust :variables
+           rustic-format-on-save t)
      (shell :variables
             shell-default-shell 'vterm
             shell-default-height 30
