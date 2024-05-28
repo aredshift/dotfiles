@@ -51,11 +51,14 @@ This function should only modify configuration layer settings."
                markdown-live-preview-engine 'vmd)
      multiple-cursors
      (org :variables
+          ;; org-id-link-to-org-use-id t ;; this breaks org captures?
+          org-enable-org-journal-support t
           org-enable-roam-support t)
      python
      (rust :variables
            rustic-format-on-save t)
      (shell :variables
+
             shell-default-shell 'vterm
             shell-default-height 30
             shell-default-position 'bottom)
@@ -593,6 +596,181 @@ configuration.
 Put your configuration code here, except for variables that should be set
 before packages are loaded."
   (setq org-startup-truncated nil)
+
+  (setq org-log-into-drawer "LOGBOOK")
+  (setq org-roam-directory "~/dev/notes/roam")
+
+  (setq org-journal-dir "~/dev/notes/journal/")
+
+  (setq org-agenda-files '("~/dev/notes/intake.org"
+                           "~/dev/notes/efforts.org"
+                           "~/dev/notes/ideas.org"
+                           "~/dev/notes/problems.org"
+                           "~/dev/notes/journal/"))
+
+
+  (setq org-todo-keyword-faces '(("BACKLOG" . "saddle brown")
+                                 ("TODO" . "cyan")
+                                 ("INPROG" . "magenta")
+                                 ("DONE" . "green")
+                                 ("CANCELLED" . "orange red")))
+
+  ;; Create IDs on capture-save
+  ;; https://stackoverflow.com/questions/13340616/assign-ids-to-every-entry-in-org-mode
+  (add-hook 'org-capture-prepare-finalize-hook 'org-id-get-create)
+
+  (setq org-capture-templates
+      '(
+    ;; Generic todo
+    ("t" "[t]odo [intake]" entry
+      (file "~/dev/notes/intake.org" )
+      "* todo %i%?")
+
+    ;; Efforts captures start with "e"
+    ("e" "Efforts")
+
+    ;; Goal
+    ("eg" "[g]oal" entry
+      (file "~/dev/notes/efforts.org" )
+      "* BACKLOG %i%? [/]%^G
+      :PROPERTIES:
+      :Created: %U
+      :Problem: [[id:%^{ProblemId|none}]]
+      :Idea: [[id:%^{IdeaId|none}]]
+      :CATEGORY: Goal
+      :END:" :empty-lines 1)
+
+    ;; Habit
+    ("eh" "[h]abit" entry
+     (id "1905b1b2-ff2f-4dfe-82f8-ef115b8fef55" ) ;; efforts.org/Habits
+     "* BACKLOG %i%? %^G
+      SCHEDULED: %^{Schedule}T
+      :PROPERTIES:
+      :Created: %U
+      :Problem: [[id:%^{ProblemId|none}]]
+      :Idea: [[id:%^{IdeaId|none}]]
+      :CATEGORY: Habit
+      :STYLE: habit
+      :END:" :empty-lines 1)
+
+    ;; Project
+    ("ep" "[p]roject" entry
+     (file "~/dev/notes/efforts.org" )
+     "* BACKLOG %i%? [/]%^G
+      :PROPERTIES:
+      :Created: %U
+      :Problem: [[id:%^{ProblemId|none}]]
+      :Idea: [[id:%^{IdeaId|none}]]
+      :CATEGORY: Project
+      :END:" :empty-lines 1)
+
+    ;; Task
+    ("et" "[t]ask" entry
+     (id "68ed4089-af41-4178-a34f-992ef13226a1" ) ;; efforts.org/Tasks
+     "* BACKLOG %i%? %^G
+      :PROPERTIES:
+      :Created: %U
+      :Problem: [[id:%^{ProblemId|none}]]
+      :Idea: [[id:%^{IdeaId|none}]]
+      :CATEGORY: Task
+      :END:" :empty-lines 1)
+
+    ;; Processing
+    ("eo" "pr[o]cessing" entry
+     (file "~/dev/notes/efforts.org" )
+     "* BACKLOG %i%? %^G
+      :PROPERTIES:
+      :Created: %U
+      :Problem: [[id:%^{ProblemId|none}]]
+      :Idea: [[id:%^{IdeaId|none}]]
+      :CATEGORY: Processing
+      :END:" :empty-lines 1)
+
+    ;; Ritual
+    ("er" "[r]itual" entry
+     (id "4ae4632f-3329-43c3-814a-ac4ab91a31c8" ) ;; efforts.org/Rituals
+     "* BACKLOG %i%? %^G
+      :PROPERTIES:
+      :Created: %U
+      :Problem: [[id:%^{ProblemId|none}]]
+      :Idea: [[id:%^{IdeaId|none}]]
+      :CATEGORY: Ritual
+      :END:" :empty-lines 1)
+
+    ;; Problem
+    ("p" "[p]roblem" entry
+     (file "~/dev/notes/problems.org" )
+     "* IDENTIFIED %i%? %^G
+      :PROPERTIES:
+      :Created: %U
+      :END:" :empty-lines 1)
+
+    ;; Idea
+    ("i" "[i]dea" entry
+     (file "~/dev/notes/ideas.org" )
+     "* CREATED %i%? %^G
+      :PROPERTIES:
+      :Created: %U
+      :Problem: [[id:%^{ProblemId|none}]]
+      :END:" :empty-lines 1)
+
+         ))
+
+  ;; just setting these in the individual files for now
+  ;; (setq org-todo-keywords '(
+  ;;                           ;; Problem sequence
+  ;;                           (sequence "IDENTIFIED" "ADDRESSING" "|" "SOLVED" )
+  ;;                           ;; Idea sequence
+  ;;                           (sequence "CREATED" "|" "MAPPED" )
+  ;;                           ;; Effort sequence
+  ;;                           (sequence "BACKLOG" "TODO" "INPROG" "|" "DONE" "CANCELLED" )))
+
+  (setq org-tag-alist '(
+                        ;; Context group
+                        ;;   situational contexts in which an item can be engaged (ME)
+                        (:startgroup)
+                        ("Context")
+                        (:grouptags)
+                        ("@home" . ?H)
+                        ("@work" . ?W)
+                        ("@traveling" . ?O)
+                        ("@errands" . ?E)
+                        (:endgroup)
+
+                        ;; Category group
+                        ;;   essential work-nature of the item (ME)
+                        ;; (:startgroup)
+                        ;; ("EntryType")
+                        ;; (:grouptags)
+                        ;; ("Action" . ?A)
+                        ;; ("Project" . ?P)
+                        ;; ("Goal" . ?G)
+                        ;; ("Habit" . ?H)
+                        ;; ("Ritual" . ?R)
+                        ;; ("Idea" . ?I)
+                        ;; (:endgroup)
+
+                        ;; LifeArea
+                        ;;   areas of my life that are engaged during an item's work
+                        (:startgrouptag)
+                        ("LifeArea")
+                        (:grouptags)
+                        ("work" . ?w)
+                        ("career")
+                        ("home")
+                        ("community")
+                        ("health")
+                        ("romance")
+                        ("reading")
+                        ("learning")
+                        ("family")
+                        ("friends")
+                        ("creativity")
+                        ("exploration")
+                        ("play")
+                        (:endgrouptag)
+
+                        ))
 )
 
 
@@ -608,8 +786,9 @@ This function is called at the very end of Spacemacs initialization."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(org-capture-templates nil)
  '(package-selected-packages
-   '(org-roam typescript-mode journalctl-mode systemd blacken code-cells company-anaconda anaconda-mode cython-mode helm-cscope helm-pydoc importmagic epc ctable concurrent deferred live-py-mode lsp-pyright lsp-python-ms nose pip-requirements pipenv load-env-vars pippel poetry py-isort pydoc pyenv-mode pythonic pylookup pytest pyvenv sphinx-doc stickyfunc-enhance xcscope yapfify add-node-modules-path counsel-gtags counsel swiper ivy dap-mode lsp-docker bui ggtags import-js grizzl js-doc js2-refactor multiple-cursors livid-mode nodejs-repl npm-mode skewer-mode js2-mode tern helm-lsp lsp-origami origami lsp-treemacs lsp-ui lsp-mode ron-mode rustic rust-mode toml-mode company-web web-completion-data emmet-mode helm-css-scss impatient-mode simple-httpd prettier-js pug-mode sass-mode haml-mode scss-mode slim-mode tagedit vmd-mode web-beautify web-mode company-terraform docker tablist aio dockerfile-mode terraform-mode hcl-mode company yaml-mode evil-org git-link git-messenger git-modes git-timemachine gitignore-templates gnuplot helm-git-grep helm-ls-git helm-org-rifle htmlize org-cliplink org-contrib org-download org-mime org-pomodoro alert log4e gntp org-present org-projectile org-project-capture org-category-capture org-rich-yank orgit-forge orgit forge yaml markdown-mode ghub closql emacsql treepy smeargle treemacs-magit magit magit-section git-commit with-editor transient ws-butler writeroom-mode winum which-key volatile-highlights vim-powerline vi-tilde-fringe uuidgen undo-tree treemacs-projectile treemacs-persp treemacs-icons-dired treemacs-evil toc-org term-cursor symon symbol-overlay string-inflection string-edit-at-point spacemacs-whitespace-cleanup spacemacs-purpose-popwin spaceline space-doc restart-emacs request rainbow-delimiters quickrun popwin pcre2el password-generator paradox overseer org-superstar open-junk-file nameless multi-line macrostep lorem-ipsum link-hint inspector info+ indent-guide hybrid-mode hungry-delete holy-mode hl-todo highlight-parentheses highlight-numbers highlight-indentation hide-comnt helm-xref helm-themes helm-swoop helm-purpose helm-projectile helm-org helm-mode-manager helm-make helm-descbinds helm-comint helm-ag google-translate golden-ratio flycheck-package flycheck-elsa flx-ido fancy-battery eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-textobj-line evil-surround evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-evilified-state evil-escape evil-easymotion evil-collection evil-cleverparens evil-args evil-anzu eval-sexp-fu emr elisp-slime-nav elisp-def editorconfig dumb-jump drag-stuff dotenv-mode dired-quick-sort diminish devdocs define-word column-enforce-mode clean-aindent-mode centered-cursor-mode auto-highlight-symbol auto-compile all-the-icons aggressive-indent ace-link ace-jump-helm-line)))
+   '(org-journal org-roam typescript-mode journalctl-mode systemd blacken code-cells company-anaconda anaconda-mode cython-mode helm-cscope helm-pydoc importmagic epc ctable concurrent deferred live-py-mode lsp-pyright lsp-python-ms nose pip-requirements pipenv load-env-vars pippel poetry py-isort pydoc pyenv-mode pythonic pylookup pytest pyvenv sphinx-doc stickyfunc-enhance xcscope yapfify add-node-modules-path counsel-gtags counsel swiper ivy dap-mode lsp-docker bui ggtags import-js grizzl js-doc js2-refactor multiple-cursors livid-mode nodejs-repl npm-mode skewer-mode js2-mode tern helm-lsp lsp-origami origami lsp-treemacs lsp-ui lsp-mode ron-mode rustic rust-mode toml-mode company-web web-completion-data emmet-mode helm-css-scss impatient-mode simple-httpd prettier-js pug-mode sass-mode haml-mode scss-mode slim-mode tagedit vmd-mode web-beautify web-mode company-terraform docker tablist aio dockerfile-mode terraform-mode hcl-mode company yaml-mode evil-org git-link git-messenger git-modes git-timemachine gitignore-templates gnuplot helm-git-grep helm-ls-git helm-org-rifle htmlize org-cliplink org-contrib org-download org-mime org-pomodoro alert log4e gntp org-present org-projectile org-project-capture org-category-capture org-rich-yank orgit-forge orgit forge yaml markdown-mode ghub closql emacsql treepy smeargle treemacs-magit magit magit-section git-commit with-editor transient ws-butler writeroom-mode winum which-key volatile-highlights vim-powerline vi-tilde-fringe uuidgen undo-tree treemacs-projectile treemacs-persp treemacs-icons-dired treemacs-evil toc-org term-cursor symon symbol-overlay string-inflection string-edit-at-point spacemacs-whitespace-cleanup spacemacs-purpose-popwin spaceline space-doc restart-emacs request rainbow-delimiters quickrun popwin pcre2el password-generator paradox overseer org-superstar open-junk-file nameless multi-line macrostep lorem-ipsum link-hint inspector info+ indent-guide hybrid-mode hungry-delete holy-mode hl-todo highlight-parentheses highlight-numbers highlight-indentation hide-comnt helm-xref helm-themes helm-swoop helm-purpose helm-projectile helm-org helm-mode-manager helm-make helm-descbinds helm-comint helm-ag google-translate golden-ratio flycheck-package flycheck-elsa flx-ido fancy-battery eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-textobj-line evil-surround evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-evilified-state evil-escape evil-easymotion evil-collection evil-cleverparens evil-args evil-anzu eval-sexp-fu emr elisp-slime-nav elisp-def editorconfig dumb-jump drag-stuff dotenv-mode dired-quick-sort diminish devdocs define-word column-enforce-mode clean-aindent-mode centered-cursor-mode auto-highlight-symbol auto-compile all-the-icons aggressive-indent ace-link ace-jump-helm-line)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
