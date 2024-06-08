@@ -46,12 +46,15 @@ This function should only modify configuration layer settings."
      helm
      html
      javascript
+     (json :variables
+           json-backend 'none) ;; prevent lsp
      lsp
      (markdown :variables
                markdown-live-preview-engine 'vmd)
      multiple-cursors
      (org :variables
           ;; org-id-link-to-org-use-id t ;; this breaks org captures?
+          org-enable-github-support t
           org-enable-org-journal-support t
           org-enable-roam-support t)
      python
