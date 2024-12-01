@@ -1,0 +1,8 @@
+[".emacs.d"]
+    type = "git-repo"
+    url = "https://github.com/plexus/chemacs2"
+
+["spacemacs"]
+    type = "git-repo"
+    url = "https://github.com/syl20bnr/spacemacs.git"
+
