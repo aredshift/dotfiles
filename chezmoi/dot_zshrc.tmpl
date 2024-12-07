@@ -43,6 +43,8 @@ antigen bundle zsh-users/zsh-syntax-highlighting
 antigen bundle zsh-users/zsh-autosuggestions
 antigen bundle zsh-users/zsh-completions
 
+antigen bundle StackExchange/blackbox
+
 # Load the theme
 antigen theme romkatv/powerlevel10k
 
@@ -108,4 +110,6 @@ export NVM_DIR="$HOME/.nvm"
 # >>> ALIASES >>>
 source ~/.shaliases
 # <<< ALIASES <<<
+
+PATH="${PATH}:${HOME}/bin"
 
