@@ -6,3 +6,6 @@
     type = "git-repo"
     url = "https://github.com/syl20bnr/spacemacs.git"
 
+["doomemacs"]
+    type = "git-repo"
+    url = "https://github.com/doomemacs/doomemacs.git"

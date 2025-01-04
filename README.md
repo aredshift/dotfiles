@@ -22,12 +22,15 @@ SSH: `chezmoi init git@github.com/aredshift/dotfiles.git`
 ## TODO
 - [x] Initialize chezmoi & dotfiles repo
 - [x] Install antigen & oh-my-zsh and track with chezmoi
+- [x] Add Doom emacs
+- [ ] Automate installation of Doom emacs (requires install post-clone via `~/doomemacs/bin/doom install`, unlike spacemacs)
 - [ ] [Configure .gitconfig template for work/personal](https://www.chezmoi.io/user-guide/manage-machine-to-machine-differences/)
 - [ ] Create CI/CD workflow for testing on multiple platforms:
     - [ ] MacOS
     - [ ] Debian
     - [ ] Arch
     - [ ] Ubuntu
+    - [ ] Fedora
 - [ ] Enable 1Pass/Bitwarden for storing sensitive data across machines
 - [ ] [Try encrypting some stuff](https://www.chezmoi.io/user-guide/encryption/gpg/)
 - [ ] [Make some fun scripts](https://www.chezmoi.io/user-guide/use-scripts-to-perform-actions/)
