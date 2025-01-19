@@ -575,7 +575,7 @@ default it calls `spacemacs/load-spacemacs-env' which loads the environment
 variables declared in `~/.spacemacs.env' or `~/.spacemacs.d/.spacemacs.env'.
 See the header of this file for more information."
   (spacemacs/load-spacemacs-env)
-)
+  )
 
 (defun dotspacemacs/user-init ()
   "Initialization for user code:
@@ -583,7 +583,7 @@ This function is called immediately after `dotspacemacs/init', before layer
 configuration.
 It is mostly for variables that should be set before packages are loaded.
 If you are unsure, try setting them in `dotspacemacs/user-config' first."
-)
+  )
 
 
 (defun dotspacemacs/user-load ()
@@ -591,7 +591,7 @@ If you are unsure, try setting them in `dotspacemacs/user-config' first."
 This function is called only while dumping Spacemacs configuration. You can
 `require' or `load' the libraries of your choice that will be included in the
 dump."
-)
+  )
 
 
 (defun dotspacemacs/user-config ()
@@ -607,11 +607,10 @@ before packages are loaded."
 
   (setq org-journal-dir "~/dev/notes/journal/")
 
-  (setq org-agenda-files '("~/dev/notes/intake.org"
-                           "~/dev/notes/efforts.org"
-                           "~/dev/notes/ideas.org"
-                           "~/dev/notes/problems.org"
-                           "~/dev/notes/journal/"))
+  (setq org-agenda-files '("~/dev/notes/intake.org.gpg"
+                           "~/dev/notes/efforts.org.gpg"
+                           "~/dev/notes/ideas.org.gpg"
+                           "~/dev/notes/problems.org.gpg"))
 
 
   (setq org-todo-keyword-faces '(("BACKLOG" . "saddle brown")
@@ -625,19 +624,19 @@ before packages are loaded."
   (add-hook 'org-capture-prepare-finalize-hook 'org-id-get-create)
 
   (setq org-capture-templates
-      '(
-    ;; Generic todo
-    ("t" "[t]odo [intake]" entry
-      (file "~/dev/notes/intake.org" )
-      "* todo %i%?")
+        '(
+          ;; Generic todo
+          ("t" "[t]odo [intake]" entry
+           (file "~/dev/notes/intake.org" )
+           "* todo %i%?")
 
-    ;; Efforts captures start with "e"
-    ("e" "Efforts")
+          ;; Efforts captures start with "e"
+          ("e" "Efforts")
 
-    ;; Goal
-    ("eg" "[g]oal" entry
-      (file "~/dev/notes/efforts.org" )
-      "* BACKLOG %i%? [/]%^G
+          ;; Goal
+          ("eg" "[g]oal" entry
+           (file "~/dev/notes/efforts.org" )
+           "* BACKLOG %i%? [/]%^G
       :PROPERTIES:
       :Created: %U
       :Problem: [[id:%^{ProblemId|none}]]
@@ -645,10 +644,10 @@ before packages are loaded."
       :CATEGORY: Goal
       :END:" :empty-lines 1)
 
-    ;; Habit
-    ("eh" "[h]abit" entry
-     (id "1905b1b2-ff2f-4dfe-82f8-ef115b8fef55" ) ;; efforts.org/Habits
-     "* BACKLOG %i%? %^G
+          ;; Habit
+          ("eh" "[h]abit" entry
+           (id "1905b1b2-ff2f-4dfe-82f8-ef115b8fef55" ) ;; efforts.org/Habits
+           "* BACKLOG %i%? %^G
       SCHEDULED: %^{Schedule}T
       :PROPERTIES:
       :Created: %U
@@ -658,10 +657,10 @@ before packages are loaded."
       :STYLE: habit
       :END:" :empty-lines 1)
 
-    ;; Project
-    ("ep" "[p]roject" entry
-     (file "~/dev/notes/efforts.org" )
-     "* BACKLOG %i%? [/]%^G
+          ;; Project
+          ("ep" "[p]roject" entry
+           (file "~/dev/notes/efforts.org" )
+           "* BACKLOG %i%? [/]%^G
       :PROPERTIES:
       :Created: %U
       :Problem: [[id:%^{ProblemId|none}]]
@@ -669,10 +668,10 @@ before packages are loaded."
       :CATEGORY: Project
       :END:" :empty-lines 1)
 
-    ;; Task
-    ("et" "[t]ask" entry
-     (id "68ed4089-af41-4178-a34f-992ef13226a1" ) ;; efforts.org/Tasks
-     "* BACKLOG %i%? %^G
+          ;; Task
+          ("et" "[t]ask" entry
+           (id "68ed4089-af41-4178-a34f-992ef13226a1" ) ;; efforts.org/Tasks
+           "* BACKLOG %i%? %^G
       :PROPERTIES:
       :Created: %U
       :Problem: [[id:%^{ProblemId|none}]]
@@ -680,10 +679,10 @@ before packages are loaded."
       :CATEGORY: Task
       :END:" :empty-lines 1)
 
-    ;; Processing
-    ("eo" "pr[o]cessing" entry
-     (file "~/dev/notes/efforts.org" )
-     "* BACKLOG %i%? %^G
+          ;; Processing
+          ("eo" "pr[o]cessing" entry
+           (file "~/dev/notes/efforts.org" )
+           "* BACKLOG %i%? %^G
       :PROPERTIES:
       :Created: %U
       :Problem: [[id:%^{ProblemId|none}]]
@@ -691,10 +690,10 @@ before packages are loaded."
       :CATEGORY: Processing
       :END:" :empty-lines 1)
 
-    ;; Ritual
-    ("er" "[r]itual" entry
-     (id "4ae4632f-3329-43c3-814a-ac4ab91a31c8" ) ;; efforts.org/Rituals
-     "* BACKLOG %i%? %^G
+          ;; Ritual
+          ("er" "[r]itual" entry
+           (id "4ae4632f-3329-43c3-814a-ac4ab91a31c8" ) ;; efforts.org/Rituals
+           "* BACKLOG %i%? %^G
       :PROPERTIES:
       :Created: %U
       :Problem: [[id:%^{ProblemId|none}]]
@@ -702,24 +701,24 @@ before packages are loaded."
       :CATEGORY: Ritual
       :END:" :empty-lines 1)
 
-    ;; Problem
-    ("p" "[p]roblem" entry
-     (file "~/dev/notes/problems.org" )
-     "* IDENTIFIED %i%? %^G
+          ;; Problem
+          ("p" "[p]roblem" entry
+           (file "~/dev/notes/problems.org" )
+           "* IDENTIFIED %i%? %^G
       :PROPERTIES:
       :Created: %U
       :END:" :empty-lines 1)
 
-    ;; Idea
-    ("i" "[i]dea" entry
-     (file "~/dev/notes/ideas.org" )
-     "* CREATED %i%? %^G
+          ;; Idea
+          ("i" "[i]dea" entry
+           (file "~/dev/notes/ideas.org" )
+           "* CREATED %i%? %^G
       :PROPERTIES:
       :Created: %U
       :Problem: [[id:%^{ProblemId|none}]]
       :END:" :empty-lines 1)
 
-         ))
+          ))
 
   ;; just setting these in the individual files for now
   ;; (setq org-todo-keywords '(
@@ -776,7 +775,7 @@ before packages are loaded."
                         (:endgrouptag)
 
                         ))
-)
+  )
 
 
 ;; Do not write anything past this comment. This is where Emacs will
@@ -786,18 +785,18 @@ before packages are loaded."
 This is an auto-generated function, do not modify its content directly, use
 Emacs customize menu instead.
 This function is called at the very end of Spacemacs initialization."
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(org-capture-templates nil t)
- '(package-selected-packages
-   '(csv-mode company-go flycheck-golangci-lint go-eldoc go-fill-struct go-gen-test go-guru go-impl go-rename go-tag go-mode godoctor org-journal org-roam typescript-mode journalctl-mode systemd blacken code-cells company-anaconda anaconda-mode cython-mode helm-cscope helm-pydoc importmagic epc ctable concurrent deferred live-py-mode lsp-pyright lsp-python-ms nose pip-requirements pipenv load-env-vars pippel poetry py-isort pydoc pyenv-mode pythonic pylookup pytest pyvenv sphinx-doc stickyfunc-enhance xcscope yapfify add-node-modules-path counsel-gtags counsel swiper ivy dap-mode lsp-docker bui ggtags import-js grizzl js-doc js2-refactor multiple-cursors livid-mode nodejs-repl npm-mode skewer-mode js2-mode tern helm-lsp lsp-origami origami lsp-treemacs lsp-ui lsp-mode ron-mode rustic rust-mode toml-mode company-web web-completion-data emmet-mode helm-css-scss impatient-mode simple-httpd prettier-js pug-mode sass-mode haml-mode scss-mode slim-mode tagedit vmd-mode web-beautify web-mode company-terraform docker tablist aio dockerfile-mode terraform-mode hcl-mode company yaml-mode evil-org git-link git-messenger git-modes git-timemachine gitignore-templates gnuplot helm-git-grep helm-ls-git helm-org-rifle htmlize org-cliplink org-contrib org-download org-mime org-pomodoro alert log4e gntp org-present org-projectile org-project-capture org-category-capture org-rich-yank orgit-forge orgit forge yaml markdown-mode ghub closql emacsql treepy smeargle treemacs-magit magit magit-section git-commit with-editor transient ws-butler writeroom-mode winum which-key volatile-highlights vim-powerline vi-tilde-fringe uuidgen undo-tree treemacs-projectile treemacs-persp treemacs-icons-dired treemacs-evil toc-org term-cursor symon symbol-overlay string-inflection string-edit-at-point spacemacs-whitespace-cleanup spacemacs-purpose-popwin spaceline space-doc restart-emacs request rainbow-delimiters quickrun popwin pcre2el password-generator paradox overseer org-superstar open-junk-file nameless multi-line macrostep lorem-ipsum link-hint inspector info+ indent-guide hybrid-mode hungry-delete holy-mode hl-todo highlight-parentheses highlight-numbers highlight-indentation hide-comnt helm-xref helm-themes helm-swoop helm-purpose helm-projectile helm-org helm-mode-manager helm-make helm-descbinds helm-comint helm-ag google-translate golden-ratio flycheck-package flycheck-elsa flx-ido fancy-battery eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-textobj-line evil-surround evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-evilified-state evil-escape evil-easymotion evil-collection evil-cleverparens evil-args evil-anzu eval-sexp-fu emr elisp-slime-nav elisp-def editorconfig dumb-jump drag-stuff dotenv-mode dired-quick-sort diminish devdocs define-word column-enforce-mode clean-aindent-mode centered-cursor-mode auto-highlight-symbol auto-compile all-the-icons aggressive-indent ace-link ace-jump-helm-line)))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
-)
+  (custom-set-variables
+   ;; custom-set-variables was added by Custom.
+   ;; If you edit it by hand, you could mess it up, so be careful.
+   ;; Your init file should contain only one such instance.
+   ;; If there is more than one, they won't work right.
+   '(org-capture-templates nil t)
+   '(package-selected-packages
+     '(csv-mode company-go flycheck-golangci-lint go-eldoc go-fill-struct go-gen-test go-guru go-impl go-rename go-tag go-mode godoctor org-journal org-roam typescript-mode journalctl-mode systemd blacken code-cells company-anaconda anaconda-mode cython-mode helm-cscope helm-pydoc importmagic epc ctable concurrent deferred live-py-mode lsp-pyright lsp-python-ms nose pip-requirements pipenv load-env-vars pippel poetry py-isort pydoc pyenv-mode pythonic pylookup pytest pyvenv sphinx-doc stickyfunc-enhance xcscope yapfify add-node-modules-path counsel-gtags counsel swiper ivy dap-mode lsp-docker bui ggtags import-js grizzl js-doc js2-refactor multiple-cursors livid-mode nodejs-repl npm-mode skewer-mode js2-mode tern helm-lsp lsp-origami origami lsp-treemacs lsp-ui lsp-mode ron-mode rustic rust-mode toml-mode company-web web-completion-data emmet-mode helm-css-scss impatient-mode simple-httpd prettier-js pug-mode sass-mode haml-mode scss-mode slim-mode tagedit vmd-mode web-beautify web-mode company-terraform docker tablist aio dockerfile-mode terraform-mode hcl-mode company yaml-mode evil-org git-link git-messenger git-modes git-timemachine gitignore-templates gnuplot helm-git-grep helm-ls-git helm-org-rifle htmlize org-cliplink org-contrib org-download org-mime org-pomodoro alert log4e gntp org-present org-projectile org-project-capture org-category-capture org-rich-yank orgit-forge orgit forge yaml markdown-mode ghub closql emacsql treepy smeargle treemacs-magit magit magit-section git-commit with-editor transient ws-butler writeroom-mode winum which-key volatile-highlights vim-powerline vi-tilde-fringe uuidgen undo-tree treemacs-projectile treemacs-persp treemacs-icons-dired treemacs-evil toc-org term-cursor symon symbol-overlay string-inflection string-edit-at-point spacemacs-whitespace-cleanup spacemacs-purpose-popwin spaceline space-doc restart-emacs request rainbow-delimiters quickrun popwin pcre2el password-generator paradox overseer org-superstar open-junk-file nameless multi-line macrostep lorem-ipsum link-hint inspector info+ indent-guide hybrid-mode hungry-delete holy-mode hl-todo highlight-parentheses highlight-numbers highlight-indentation hide-comnt helm-xref helm-themes helm-swoop helm-purpose helm-projectile helm-org helm-mode-manager helm-make helm-descbinds helm-comint helm-ag google-translate golden-ratio flycheck-package flycheck-elsa flx-ido fancy-battery eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-textobj-line evil-surround evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-evilified-state evil-escape evil-easymotion evil-collection evil-cleverparens evil-args evil-anzu eval-sexp-fu emr elisp-slime-nav elisp-def editorconfig dumb-jump drag-stuff dotenv-mode dired-quick-sort diminish devdocs define-word column-enforce-mode clean-aindent-mode centered-cursor-mode auto-highlight-symbol auto-compile all-the-icons aggressive-indent ace-link ace-jump-helm-line)))
+  (custom-set-faces
+   ;; custom-set-faces was added by Custom.
+   ;; If you edit it by hand, you could mess it up, so be careful.
+   ;; Your init file should contain only one such instance.
+   ;; If there is more than one, they won't work right.
+   )
+  )
