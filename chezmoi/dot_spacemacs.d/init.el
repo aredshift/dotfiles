@@ -59,7 +59,10 @@ This function should only modify configuration layer settings."
           org-enable-github-support t
           org-enable-org-journal-support t
           org-enable-roam-support t)
-     python
+     (python :variables
+             python-backend 'lsp
+             ;; for some reason the default lsp formatter doesn't work
+             python-formatter 'black)
      (rust :variables
            rustic-format-on-save t)
      (shell :variables
