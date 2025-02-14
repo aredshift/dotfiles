@@ -400,7 +400,7 @@ It should only modify the values of Spacemacs settings."
    ;; If non-nil the frame is undecorated when Emacs starts up. Combine this
    ;; variable with `dotspacemacs-maximized-at-startup' to obtain fullscreen
    ;; without external boxes. Also disables the internal border. (default nil)
-   dotspacemacs-undecorated-at-startup nil
+   dotspacemacs-undecorated-at-startup t
 
    ;; A value from the range (0..100), in increasing opacity, which describes
    ;; the transparency level of a frame when it's active or selected.
@@ -638,7 +638,7 @@ before packages are loaded."
 
           ;; Goal
           ("eg" "[g]oal" entry
-           (file "~/dev/notes/efforts.org" )
+           (file "~/dev/notes/efforts.org.gpg" )
            "* BACKLOG %i%? [/]%^G
       :PROPERTIES:
       :Created: %U
@@ -662,7 +662,7 @@ before packages are loaded."
 
           ;; Project
           ("ep" "[p]roject" entry
-           (file "~/dev/notes/efforts.org" )
+           (file "~/dev/notes/efforts.org.gpg" )
            "* BACKLOG %i%? [/]%^G
       :PROPERTIES:
       :Created: %U
@@ -684,7 +684,7 @@ before packages are loaded."
 
           ;; Processing
           ("eo" "pr[o]cessing" entry
-           (file "~/dev/notes/efforts.org" )
+           (file "~/dev/notes/efforts.org.gpg" )
            "* BACKLOG %i%? %^G
       :PROPERTIES:
       :Created: %U
@@ -706,7 +706,7 @@ before packages are loaded."
 
           ;; Problem
           ("p" "[p]roblem" entry
-           (file "~/dev/notes/problems.org" )
+           (file "~/dev/notes/problems.org.gpg" )
            "* IDENTIFIED %i%? %^G
       :PROPERTIES:
       :Created: %U
@@ -714,7 +714,7 @@ before packages are loaded."
 
           ;; Idea
           ("i" "[i]dea" entry
-           (file "~/dev/notes/ideas.org" )
+           (file "~/dev/notes/ideas.org.gpg" )
            "* CREATED %i%? %^G
       :PROPERTIES:
       :Created: %U
